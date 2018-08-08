@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "20d5cf8d-727f-4335-93fe-a332d7eed127",
+		"name": "dino-ipsum",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"_postman_id": "223e48e4-ddb7-4227-bac8-e172fdd0746e",
+			"name": "dino-test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://dinoipsum.herokuapp.com/api/?format=json&paragraphs=3&words=3",
+					"protocol": "http",
+					"host": [
+						"dinoipsum",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"api",
+						""
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "json"
+						},
+						{
+							"key": "paragraphs",
+							"value": "3",
+							"description": "gets set amount of paragraphs"
+						},
+						{
+							"key": "words",
+							"value": "3",
+							"description": "gets set amount of words"
+						}
+					]
+				},
+				"description": "Set test for Dino-ipsum in "
+			},
+			"response": []
+		}
+	]
+}

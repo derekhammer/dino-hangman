@@ -1,16 +1,32 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>MuhDino</title>
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 jumbotron">
-          <h1>Gimme Dino</h1>
-        </div>
+<head>
+  <meta charset="utf-8">
+  <title>MuhDino</title>
+</head>
+<body>
+  <div class="container-fluid">
+    <h1 class="row col-md-12 jumbotron">Gimme Dino</h1>
+    <div class="row col-md-12" id="sweet-landing">
+      <p>Here's the longwinded tangent on Dino-ipsum</p>
+      <button class="btn btn-primary" id="do-stuff" type="button">Give me Dino-ipsum</button>
+    </div>
+    <div class="row" id="dino-space">
+      <div class="col-md-6">
+        <p>How to Dino?</p>
+        <p>Here's our really cool form section for passing the api information</p>
+        <form class="form-control">
+          <label for="words">How many words per paragraph?</label>
+          <input name="words" id="words" class="words form-control" type="number" />
+          <label for="paragraphs">How many paragraphs?</label>
+          <input name="paragraphs" id="paragraphs" class="paragraphs form-controll" type="number" />
+          <button class="btn btn-primary" id="gimme-dino" type="submit">Gimme Dino</button>
+        </form>
+      </div>
+      <div class="col-md-6">
+        <p id="results"></p>
       </div>
     </div>
-  </body>
+  </div>
+</body>
 </html>
