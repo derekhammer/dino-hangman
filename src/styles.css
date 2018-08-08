@@ -1,11 +1,17 @@
-body {
+body
+{
   background-color: #7FDBFF;
 }
 
 /*#dino-space{
   display: none;
 }*/
-#results{
+#results
+{
   text-overflow: inherit;
   word-wrap: break-word;
+}
+button
+{
+  margin-left: 50px;
 }

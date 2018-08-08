@@ -6,11 +6,16 @@
 </head>
 <body>
   <div class="container-fluid">
-    <h1 class="row col-md-12 jumbotron">Gimme Dino</h1>
+
+    <h1 id="header1" class="row col-md-12 jumbotron">Gimme Dino</h1>
+    <h1 id="header2" class="row col-md-12 jumbotron">GET U SUM</h1>
+
     <div class="row col-md-12" id="sweet-landing">
       <p>Here's the longwinded tangent on Dino-ipsum</p>
       <button class="btn btn-primary" id="do-stuff" type="button">Give me Dino-ipsum</button>
+      <button class="btn btn-success" id="play-hangman-button" type="button">Dino Hangman</button>
     </div>
+
     <div class="row" id="dino-space">
       <div class="col-md-6">
         <p>How to Dino?</p>
@@ -27,6 +32,23 @@
         <p id="results"></p>
       </div>
     </div>
+
+    <div id="dino-hangman">
+      <p id="blanks"></p>
+      <p id="guesses"></p>
+      <p id="tries-left"></p>
+      <form class="form-group" id="letter-guess-form">
+        <label for="letter-guess">Guess a letter.</label>
+        <input id="letter-guess" class="form-control" />
+        <button class="btn btn-success" type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div id="dino-game-over">
+      <h1>GAME OVER!</h1>
+      <p id="win-or-lose"></p>
+    </div>
+
   </div>
 </body>
 </html>
