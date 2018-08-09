@@ -3,8 +3,8 @@
 ## Author(s)
 
   * James Hanley
-  * Steven Colburn
-  * Alex?
+  * Alex Bunnell
+  * Derek Hammer
 
 ## Created 08/08/2018
 
