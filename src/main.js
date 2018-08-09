@@ -12,7 +12,8 @@ $(document).ready(function()
   $("#dino-space").hide();
   $("#dino-hangman").hide();
   $("#header2").hide();
-  $("#dino-game-over").hide();
+  $("#you-lose").hide();
+  $("#you-win").hide();
   //Header Switcher
   setInterval(function()
   {
@@ -50,44 +51,52 @@ $(document).ready(function()
     let getElements = function(response)
     {
       let tempResults = response.join().split(",").join(", ");
-      $('#results').html(`Your Dino-ipsum results are: ${tempResults}`);
+      $('#results').text(`Your Dino-ipsum results are: ${tempResults}`);
     }
   });
   //Button for accessing the dino hangman feature
-  $("button#play-hangman-button").click(function(event)
+  $("button#play-hangman-button").click(function()
   {
-    event.preventDefault();
     $("#dino-hangman").show();
     $("#sweet-landing").hide();
 
-    let request = new XMLHttpRequest();
-    let url = `http://dinoipsum.herokuapp.com/api/?format=json&paragraphs=1&words=1`;
-    request.onreadystatechange = function()
+    let promise = new Promise(function(resolve, reject)
     {
-      if(this.readyState === 4 && this.status === 200)
+      let request = new XMLHttpRequest();
+      let url = `http://dinoipsum.herokuapp.com/api/?format=json&paragraphs=1&words=1`;
+      request.onload = function()
       {
-        let response = JSON.parse(this.responseText.toLowerCase());
-        getElements(response);
+        if(this.status === 200)
+        {
+          resolve(request.response);
+        }
+        else
+        {
+          reject(Error(request.statusText));
+        }
       }
-    }
-    request.open("GET", url, true);
-    request.send();
-
-    let getElements = function(response)
+      request.open("GET", url, true);
+      request.send();
+    });
+    promise.then(function(response)
     {
+      let dinos = JSON.parse(response.toLowerCase());
       let displayArray = [];
-      let nameArray = response.join().split("");
-      let arrayLength = response.join().split("").length;
+      let nameArray = dinos.join().split("");
+      let arrayLength = dinos.join().split("").length;
       for(let i = 0; i < arrayLength; i++)
       {
         displayArray.push("_");
       }
       dinoGame.setName(nameArray);
       dinoGame.setBlanks(displayArray);
-      $('#blanks').html(`Dinosaur Name: ${dinoGame.blankSpots}`);
-      $('#guesses').html(`Guessed Letters: ${dinoGame.guessedLetters}`);
-      $('#tries-left').html(`Tries Remaining: ${dinoGame.turnLimit - dinoGame.turnCounter}`);
-    }
+      $('#blanks').text(`Dinosaur Name: ${dinoGame.blankSpots}`);
+      $('#guesses').text(`Guessed Letters: ${dinoGame.guessedLetters}`);
+      $('#tries-left').text(`Tries Remaining: ${dinoGame.turnLimit - dinoGame.turnCounter}`);
+    }, function(error)
+    {
+      $('#error-field').text(`${error.message}`);
+    });
   });
   //Button to submit letter guess
   $("form#letter-guess-form").submit(function(event)
@@ -96,8 +105,25 @@ $(document).ready(function()
     let input = $("#letter-guess").val();
     $("#letter-guess").val("");
     dinoGame.checkLetter(input);
-    $('#blanks').html(`Dinosaur Name: ${dinoGame.blankSpots}`);
-    $('#guesses').html(`Guessed Letters: ${dinoGame.guessedLetters}`);
-    $('#tries-left').html(`Tries Remaining: ${dinoGame.turnLimit - dinoGame.turnCounter}`);
+    $('#blanks').text(`Dinosaur Name: ${dinoGame.blankSpots}`);
+    $('#guesses').text(`Guessed Letters: ${dinoGame.guessedLetters}`);
+    $('#tries-left').text(`Tries Remaining: ${dinoGame.turnLimit - dinoGame.turnCounter}`);
+    if(dinoGame.checkGameOver())
+    {
+      if(dinoGame.turnLimit === dinoGame.turnCounter)
+      {
+        let theDinoName = dinoGame.dinoName.join("");
+        $('#correct-answer').text(`The correct answer is ${theDinoName}`);
+        $('#dino-hangman').hide();
+        $('#you-lose').show();
+      }
+      else
+      {
+        let theDinoName = dinoGame.dinoName.join("");
+        $('#thats-right').text(`You got it: ${theDinoName}`);
+        $('#dino-hangman').hide();
+        $('#you-win').show();
+      }
+    }
   });
 });
